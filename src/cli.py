@@ -3,9 +3,9 @@ import rclpy
 from std_msgs.msg import String
 
 parser = argparse.ArgumentParser(
-    prog="ProgramName",
-    description="What the program does",
-    epilog="Text at the bottom of help",
+    prog="Turtlesim-deque",
+    description="Controla a tartaruguinha :p",
+    epilog="Prova 1, Engenharia de Computação Módulo 6",
 )
 
 parser.add_argument("vx", default=0)

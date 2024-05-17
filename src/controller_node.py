@@ -5,9 +5,6 @@ from std_srvs.srv import Empty
 from geometry_msgs.msg import Twist
 from collections import deque
 
-MAX_LINEAR_VEL = 0.22
-MAX_ANGULAR_VEL = 2.84
-
 
 class TeleopService(Node):
     def __init__(self):
@@ -50,7 +47,7 @@ class TeleopService(Node):
             "vx": float(vx),
             "vy": float(vy),
             "vtheta": float(vtheta),
-            "time": float(time),
+            "time": float(time)/1000,
         }
         print(f"Command received: {msg.data}")
         self.command_queue.append(command)
@@ -68,10 +65,10 @@ class TeleopService(Node):
             command.linear.y = current.get("vy")
             command.angular.z = current.get("vtheta")
 
-            print(command)
+            print(f"Executing command: {command}")
             self.timer.destroy()
             self.timer = self.create_timer(
-                current.get("time") / 1000, self.timer_callback
+                current.get("time"), self.timer_callback
             )
             self.cmd_vel_publisher.publish(command)
         else:
